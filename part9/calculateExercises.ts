@@ -8,6 +8,27 @@ interface exerciseValues {
   average: number;
 }
 
+interface exerciseInput {
+  exercises: Array<any>;
+  target: number;
+}
+
+const parseExerciseArguments = (args: Array<string>): exerciseInput => {
+  console.log(args);
+  if (args.length < 2) throw new Error("Not enough entries");
+
+  const exercises = [1];
+
+  if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
+    return {
+      exercises,
+      target: Number(args[args.length - 1]),
+    };
+  } else {
+    throw new Error("Incorrect String");
+  }
+};
+
 const calculateExercises = (
   exercises: Array<number>,
   target: number
@@ -43,7 +64,15 @@ const calculateExercises = (
       ratingDescription = "well done";
       break;
   }
-
+  console.log({
+    periodLength,
+    trainingDays,
+    average,
+    success,
+    target,
+    rating,
+    ratingDescription,
+  });
   return {
     periodLength,
     trainingDays,
@@ -54,5 +83,16 @@ const calculateExercises = (
     ratingDescription,
   };
 };
+
+try {
+  const { exercises, target } = parseExerciseArguments(process.argv);
+  calculateExercises(exercises, target);
+} catch (error: unknown) {
+  let errorMessage = "Something bad happened";
+  if (error instanceof Error) {
+    errorMessage += " Error: " + error.message;
+  }
+  console.log(errorMessage);
+}
 
 module.exports = calculateExercises;

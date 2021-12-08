@@ -6,14 +6,13 @@ interface BmiValues {
 type BmiResult = string;
 
 const parseBmiArguments = (args: Array<string>): BmiValues => {
-  console.log(args);
-  if (args.length < 3) throw new Error("Not enough arguments");
-  if (args.length > 3) throw new Error("Too many arguments");
+  if (args.length < 4) throw new Error("Not enough arguments");
+  if (args.length > 4) throw new Error("Too many arguments");
 
-  if (!isNaN(Number(args[1])) && !isNaN(Number(args[2]))) {
+  if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
     return {
-      value1: Number(args[1]),
-      value2: Number(args[2]),
+      value1: Number(args[2]),
+      value2: Number(args[3]),
     };
   } else {
     throw new Error("Provided values were not numbers!");
@@ -24,10 +23,13 @@ const calculateBmi = (height: number, weight: number): BmiResult => {
   const expression = height / weight;
   switch (true) {
     case expression < 18.5:
+      console.log("You're Underweight");
       return "You're Underweight";
     case expression > 18.5 && expression < 24.9:
+      console.log("Normal (healthy weight)");
       return "Normal (healthy weight)";
     case expression < 25:
+      console.log("You're Overweight");
       return "You're Overweight";
   }
 };
