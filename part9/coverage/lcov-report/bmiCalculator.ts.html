@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for multiply.ts</title>
+    <title>Code coverage report for bmiCalculator.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="prettify.css" />
     <link rel="stylesheet" href="base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="index.html">All files</a> multiply.ts</h1>
+        <h1><a href="index.html">All files</a> bmiCalculator.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">10% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/10</span>
+                <span class='fraction'>1/10</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.82% </span>
+                <span class="strong">64.7% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/17</span>
+                <span class='fraction'>11/17</span>
             </div>
         
             
@@ -100,16 +100,14 @@
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
 <a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -123,18 +121,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -143,37 +137,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">interface MultiplyValues {
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">interface BmiValues {
   value1: number;
   value2: number;
 }
+type BmiResult = number;
 &nbsp;
-const parseArguments = (args: Array&lt;string&gt;): MultiplyValues =&gt; {
-  if (args.length &lt; 4) throw new Error("Not enough arguments");
-<span class="cstat-no" title="statement not covered" >  if (args.length &gt; 4) <span class="cstat-no" title="statement not covered" >throw new Error("Too many arguments");</span></span>
+const parseBmiArguments = <span class="fstat-no" title="function not covered" >(a</span>rgs: Array&lt;string&gt;): BmiValues =&gt; {
+<span class="cstat-no" title="statement not covered" >  if (args.length &lt; 3) <span class="cstat-no" title="statement not covered" >throw new Error("Not enough arguments");</span></span>
+<span class="cstat-no" title="statement not covered" >  if (args.length &gt; 3) <span class="cstat-no" title="statement not covered" >throw new Error("Too many arguments");</span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!isNaN(Number(args[2])) &amp;&amp; !isNaN(Number(args[3]))) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!isNaN(Number(args[1])) &amp;&amp; !isNaN(Number(args[2]))) {</span>
 <span class="cstat-no" title="statement not covered" >    return {</span>
-      value1: Number(args[2]),
-      value2: Number(args[3]),
+      value1: Number(args[1]),
+      value2: Number(args[2]),
     };
   } else {
 <span class="cstat-no" title="statement not covered" >    throw new Error("Provided values were not numbers!");</span>
   }
 };
 &nbsp;
-const multiplicator = <span class="fstat-no" title="function not covered" >(a</span>: number, b: number, printText: string) =&gt; {
-<span class="cstat-no" title="statement not covered" >  console.log(printText, a * b);</span>
-<span class="cstat-no" title="statement not covered" >  return printText + a * b;</span>
+const calculateBmi = (height: number, weight: number): BmiResult =&gt; {
+  let result = height / weight;
+  return result;
 };
 &nbsp;
 try {
   const { value1, value2 } = parseArguments(process.argv);
-<span class="cstat-no" title="statement not covered" >  multiplicator(</span>
-    value1,
-    value2,
-    `Multiplied ${value1} and ${value2}, the result is:`
-  );
+<span class="cstat-no" title="statement not covered" >  calculateBmi(value1, value2);</span>
 } catch (error: unknown) {
   let errorMessage = "Something bad happened";
   if (error instanceof Error) {
@@ -182,7 +173,7 @@ try {
   console.log(errorMessage);
 }
 &nbsp;
-module.exports = multiplicator;
+module.exports = calculateBmi;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
