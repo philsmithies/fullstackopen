@@ -2,9 +2,11 @@ interface BmiValues {
   value1: number;
   value2: number;
 }
-type BmiResult = number;
+
+type BmiResult = string;
 
 const parseBmiArguments = (args: Array<string>): BmiValues => {
+  console.log(args);
   if (args.length < 3) throw new Error("Not enough arguments");
   if (args.length > 3) throw new Error("Too many arguments");
 
@@ -19,12 +21,19 @@ const parseBmiArguments = (args: Array<string>): BmiValues => {
 };
 
 const calculateBmi = (height: number, weight: number): BmiResult => {
-  let result = height / weight;
-  return result;
+  const expression = height / weight;
+  switch (true) {
+    case expression < 18.5:
+      return "You're Underweight";
+    case expression > 18.5 && expression < 24.9:
+      return "Normal (healthy weight)";
+    case expression < 25:
+      return "You're Overweight";
+  }
 };
 
 try {
-  const { value1, value2 } = parseArguments(process.argv);
+  const { value1, value2 } = parseBmiArguments(process.argv);
   calculateBmi(value1, value2);
 } catch (error: unknown) {
   let errorMessage = "Something bad happened";
