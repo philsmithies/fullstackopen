@@ -17,12 +17,12 @@ const parseExerciseArguments = (args: Array<string>): exerciseInput => {
   if (args.length < 2) throw new Error("Not enough entries");
 
   if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
-    let exercises: Array<string | number> = [];
+    const exercises: Array<string | number> = [];
     for (let i = 2; i < args.length; i++) {
       exercises.push(parseInt(args[i], 10));
     }
     return {
-      exercises,
+      exercises: Array(exercises),
       target: Number(args[args.length - 1]),
     };
   } else {
@@ -93,15 +93,17 @@ const calculateExercises = (
   };
 };
 
-try {
-  const { exercises, target } = parseExerciseArguments(process.argv);
-  calculateExercises(exercises, target);
-} catch (error: unknown) {
-  let errorMessage = "Something bad happened";
-  if (error instanceof Error) {
-    errorMessage += " Error: " + error.message;
+export const calculateExerciseProgram = () => {
+  try {
+    const { exercises, target } = parseExerciseArguments(process.argv);
+    calculateExercises(exercises, target);
+  } catch (error: unknown) {
+    let errorMessage = "Something bad happened";
+    if (error instanceof Error) {
+      errorMessage += " Error: " + error.message;
+    }
+    console.log(errorMessage);
   }
-  console.log(errorMessage);
-}
+};
 
 module.exports = calculateExercises;
