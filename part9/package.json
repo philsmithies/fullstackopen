@@ -11,7 +11,8 @@
     "calculateBmi": "ts-node bmiCalculator.ts",
     "calculateExercises": "ts-node calculateExercises.ts",
     "start": "ts-node index.ts",
-    "dev": "ts-node-dev index.ts"
+    "dev": "ts-node-dev index.ts",
+    "lint": "eslint --ext .ts ."
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +21,9 @@
     "@types/express": "^4.17.13",
     "@types/jest": "^27.0.3",
     "@types/node": "^16.11.12",
+    "@typescript-eslint/eslint-plugin": "^5.6.0",
+    "@typescript-eslint/parser": "^5.6.0",
+    "eslint": "^8.4.1",
     "jest": "^27.4.3",
     "ts-node": "^10.4.0",
     "ts-node-dev": "^1.1.8",

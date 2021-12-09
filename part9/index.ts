@@ -18,15 +18,17 @@ app.get("/bmi", (req, res) => {
       const weight = req.query.weight as string;
       const result = bmiCalculator(parseInt(height, 10), parseInt(weight, 10));
       res.send(result);
-    } catch (error) {
-      res.send({ error: "malformatted parameters", message: error.message });
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        res.send({ error: "malformatted parameters", message: err.message });
+      }
     }
   }
 });
 
 app.post("/calculate", (req, res) => {
   const { value1, value2, op } = req.body;
-  const result = calculator(value1, value2, op);
+  const result = calculator(Number(value1), Number(value2), op);
   res.send(result);
 });
 

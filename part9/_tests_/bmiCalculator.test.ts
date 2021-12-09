@@ -1,5 +1,5 @@
-const calcBmi = require("../bmiCalculator");
+// import { bmiCalculator } from "../bmiCalculator";
 
-xit("can work out a normal bmi", () => {
-  expect(calcBmi(180, 74)).toBe("You're Underweight");
-});
+// xit("can work out a underweight bmi", () => {
+//   expect(bmiCalculator(180, 74)).toBe("You're Underweight");
+// });
