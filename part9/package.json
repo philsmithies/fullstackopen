@@ -9,12 +9,14 @@
     "multiply": "ts-node multiply.ts",
     "calculator": "ts-node calculator.ts",
     "calculateBmi": "ts-node bmiCalculator.ts",
-    "calculateExercises": "ts-node calculateExercises.ts"
+    "calculateExercises": "ts-node calculateExercises.ts",
+    "start": "ts-node index.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.16.0",
+    "@types/express": "^4.17.13",
     "@types/jest": "^27.0.3",
     "@types/node": "^16.11.12",
     "jest": "^27.4.3",
@@ -24,6 +26,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.16.4",
-    "@babel/preset-typescript": "^7.16.0"
+    "@babel/preset-typescript": "^7.16.0",
+    "express": "^4.17.1"
   }
 }
