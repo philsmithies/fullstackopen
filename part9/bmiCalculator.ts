@@ -31,6 +31,8 @@ const calculateBmi = (height: number, weight: number): BmiResult => {
     case expression < 25:
       console.log("You're Overweight");
       return "You're Overweight";
+    default:
+      return "Not sure what your weight is";
   }
 };
 
