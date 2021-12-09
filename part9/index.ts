@@ -1,6 +1,7 @@
 import express from "express";
 const app = express();
-const bmiCalculator = require("./bmiCalculator");
+import { bmiCalculator } from "./bmiCalculator";
+import { calculator } from "./calculator";
 
 app.get("/ping", (_req, res) => {
   res.send("pong ping");
@@ -21,6 +22,12 @@ app.get("/bmi", (req, res) => {
       res.send({ error: "malformatted parameters", message: error.message });
     }
   }
+});
+
+app.post("/calculate", (req, res) => {
+  const { value1, value2, op } = req.body;
+  const result = calculator(value1, value2, op);
+  res.send(result);
 });
 
 const PORT = 3003;
