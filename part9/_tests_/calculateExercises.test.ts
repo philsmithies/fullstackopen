@@ -8,6 +8,6 @@ it("can work out the amount of days that had exercise", () => {
     rating: 2,
     ratingDescription: "not too bad but could be better",
     target: 2,
-    average: 1.9285714285714286,
+    average: 1.7857142857142858,
   });
 });

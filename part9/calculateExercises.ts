@@ -14,12 +14,13 @@ interface exerciseInput {
 }
 
 const parseExerciseArguments = (args: Array<string>): exerciseInput => {
-  console.log(args);
   if (args.length < 2) throw new Error("Not enough entries");
 
-  const exercises = [1];
-
   if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
+    let exercises: Array<string | number> = [];
+    for (let i = 2; i < args.length; i++) {
+      exercises.push(parseInt(args[i], 10));
+    }
     return {
       exercises,
       target: Number(args[args.length - 1]),
@@ -35,7 +36,13 @@ const calculateExercises = (
 ): exerciseValues => {
   const periodLength = exercises.length;
   const trainingDays = exercises.filter((entry) => entry > 0).length;
-  const total = exercises.reduce((x, y) => x + y, 0);
+  exercises.pop();
+  let total = 0;
+  for (let i = 0; i < exercises.length; i++) {
+    if (exercises[i] > 0) total += exercises[i];
+  }
+  // const total = exercises.reduce((x, y) => x + y, 0);
+  console.log("the total is " + total);
   const average = total / periodLength;
   const success = average > target;
   let rating = 0;
@@ -48,7 +55,7 @@ const calculateExercises = (
     case average < 2:
       rating = 2;
       break;
-    case average < 2:
+    case average > 2:
       rating = 3;
       break;
   }
@@ -60,10 +67,11 @@ const calculateExercises = (
     case average < 2:
       ratingDescription = "not too bad but could be better";
       break;
-    case average < 2:
+    case average > 2:
       ratingDescription = "well done";
       break;
   }
+
   console.log({
     periodLength,
     trainingDays,
@@ -73,6 +81,7 @@ const calculateExercises = (
     rating,
     ratingDescription,
   });
+
   return {
     periodLength,
     trainingDays,
