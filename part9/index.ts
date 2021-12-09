@@ -11,7 +11,16 @@ app.get("/hello", (_req, res) => {
 });
 
 app.get("/bmi", (req, res) => {
-  res.send(bmiCalculator(req.query.height, req.query.weight));
+  if (req.query) {
+    try {
+      const height = req.query.height as string;
+      const weight = req.query.weight as string;
+      const result = bmiCalculator(parseInt(height, 10), parseInt(weight, 10));
+      res.send(result);
+    } catch (error) {
+      res.send({ error: "malformatted parameters", message: error.message });
+    }
+  }
 });
 
 const PORT = 3003;
