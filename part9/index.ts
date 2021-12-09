@@ -1,5 +1,6 @@
 import express from "express";
 const app = express();
+const bmiCalculator = require("./bmiCalculator");
 
 app.get("/ping", (_req, res) => {
   res.send("pong ping");
@@ -10,8 +11,7 @@ app.get("/hello", (_req, res) => {
 });
 
 app.get("/bmi", (req, res) => {
-  console.log(req.query);
-  res.send(req.query);
+  res.send(bmiCalculator(req.query.height, req.query.weight));
 });
 
 const PORT = 3003;
