@@ -1,4 +1,5 @@
 import express from "express";
+import { Request, Response } from "express";
 const app = express();
 import { bmiCalculator } from "./bmiCalculator";
 import { calculator } from "./calculator";
@@ -26,7 +27,7 @@ app.get("/bmi", (req, res) => {
   }
 });
 
-app.post("/calculate", (req, res) => {
+app.post("/calculate", (req: Request, res: Response) => {
   const { value1, value2, op } = req.body;
   const result = calculator(Number(value1), Number(value2), op);
   res.send(result);
