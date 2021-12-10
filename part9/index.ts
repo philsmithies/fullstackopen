@@ -1,8 +1,13 @@
 import express from "express";
-import { Request, Response } from "express";
 const app = express();
 import { bmiCalculator } from "./bmiCalculator";
-import { calculator } from "./calculator";
+import { calculator, Operation } from "./calculator";
+
+interface Body {
+  daily_exercises: number[];
+  target: number;
+  op: Operation;
+}
 
 app.get("/ping", (_req, res) => {
   res.send("pong ping");
@@ -27,9 +32,16 @@ app.get("/bmi", (req, res) => {
   }
 });
 
-app.post("/calculate", (req: Request, res: Response) => {
-  const { value1, value2, op } = req.body;
-  const result = calculator(Number(value1), Number(value2), op);
+app.post("/calculate", (req, res) => {
+  const { daily_exercises, target, op }: Body = req.body as Body;
+
+  if (!daily_exercises || !target) {
+    res.status(400).json({
+      error: "parameters missing",
+    });
+  }
+
+  const result = calculator(Number(daily_exercises), Number(target), op);
   res.send(result);
 });
 
