@@ -5,17 +5,17 @@ interface courseProps {
   exerciseCount: number;
 }
 
-const Content = ({ courseParts }: { courseParts: Array<courseProps> }) => {
+const Content = ({ content }: { content: Array<courseProps> }) => {
   return (
     <div>
       <p>
-        {courseParts[0].name} {courseParts[0].exerciseCount}
+        {content[0].name} {content[0].exerciseCount}
       </p>
       <p>
-        {courseParts[1].name} {courseParts[1].exerciseCount}
+        {content[1].name} {content[1].exerciseCount}
       </p>
       <p>
-        {courseParts[2].name} {courseParts[2].exerciseCount}
+        {content[2].name} {content[2].exerciseCount}
       </p>
     </div>
   );

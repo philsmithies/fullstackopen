@@ -1,9 +1,9 @@
 import React from "react";
 
-const Header = ({ courseName }: { courseName: string }): JSX.Element => {
+const Header = ({ name }: { name: string }): JSX.Element => {
   return (
     <div>
-      <h1>{courseName}</h1>
+      <h1>{name}</h1>
     </div>
   );
 };
