@@ -1,4 +1,4 @@
-type Operation = "multiply" | "add" | "divide";
+export type Operation = "multiply" | "add" | "divide";
 type Result = number;
 
 const calculate = (a: number, b: number, op: Operation): Result => {

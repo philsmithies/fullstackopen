@@ -8,21 +8,16 @@ interface exerciseValues {
   average: number;
 }
 
-interface exerciseInput {
-  exercises: Array<any>;
-  target: number;
-}
-
-const parseExerciseArguments = (args: Array<string>): exerciseInput => {
+const parseExerciseArguments = (args: Array<string>) => {
   if (args.length < 2) throw new Error("Not enough entries");
 
   if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
-    const exercises: Array<string | number> = [];
+    const exercises = [];
     for (let i = 2; i < args.length; i++) {
       exercises.push(parseInt(args[i], 10));
     }
     return {
-      exercises: Array(exercises),
+      exercises,
       target: Number(args[args.length - 1]),
     };
   } else {
