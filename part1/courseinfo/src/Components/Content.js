@@ -5,7 +5,10 @@ const Content = () => {
   return (
     <div>
       {FSO_data.map((element, i) => (
-        <p>{element.text}</p>
+        <div>
+          <h2>{element.text}</h2>
+          <p>{element.amount}</p>
+        </div>
       ))}
     </div>
   );
