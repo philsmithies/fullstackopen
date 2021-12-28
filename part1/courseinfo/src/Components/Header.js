@@ -1,9 +1,9 @@
 import React from "react";
 
-const Header = () => {
+const Header = ({ course }) => {
   return (
     <div>
-      <h1>Half Stack application development</h1>
+      <h1>{course}</h1>
     </div>
   );
 };
