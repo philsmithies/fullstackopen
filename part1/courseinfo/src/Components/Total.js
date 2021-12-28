@@ -1,8 +1,9 @@
 import React from "react";
 import FSO_data from "../FSO_data";
 
-const Total = ({ exercises1, exercises2, exercises3 }) => {
-  const totalAmount = exercises1 + exercises2 + exercises3;
+const Total = ({ parts }) => {
+  const totalAmount =
+    parts[0].exercises + parts[1].exercises + parts[2].exercises;
   return (
     <div>
       <h2>The total is: {totalAmount}</h2>
