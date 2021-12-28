@@ -1,4 +1,3 @@
-import React from "react";
 import Content from "./Components/Content";
 import Header from "./Components/Header";
 import Total from "./Components/Total";
@@ -11,12 +10,23 @@ const App = () => {
   const exercises2 = 7;
   const part3 = "State of a component";
   const exercises3 = 14;
+
   return (
     <div>
-      <h1>testing</h1>
       <Header course={course} />
-      {/* <Content part1={part1} />
-      <Total exercises1={exercises1} /> */}
+      <Content
+        part1={part1}
+        part2={part2}
+        part3={part3}
+        exercises1={exercises1}
+        exercises2={exercises2}
+        exercises3={exercises3}
+      />
+      <Total
+        exercises1={exercises1}
+        exercises2={exercises2}
+        exercises3={exercises3}
+      />
     </div>
   );
 };
