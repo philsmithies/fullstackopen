@@ -1,15 +1,20 @@
 import React from "react";
 import FSO_data from "../FSO_data";
+import Part from "./Part";
 
-const Content = () => {
+const Content = ({
+  part1,
+  part2,
+  part3,
+  exercises1,
+  exercises2,
+  exercises3,
+}) => {
   return (
     <div>
-      {FSO_data.map((element, i) => (
-        <div>
-          <h2>{element.text}</h2>
-          <p>{element.amount}</p>
-        </div>
-      ))}
+      <Part text={part1} exercises={exercises1} />
+      <Part text={part2} exercises={exercises2} />
+      <Part text={part3} exercises={exercises3} />
     </div>
   );
 };
