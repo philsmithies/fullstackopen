@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Statistics } from "./Components/Statistics";
 
 const App = () => {
   // save clicks of each button to its own state
@@ -12,8 +13,12 @@ const App = () => {
 
   const findAverage = () => {
     // the average score (good: 1, neutral: 0, bad: -1)
-    let average = good * 1 - bad;
-    return average;
+    let total = findTotal();
+    if (total !== 0) {
+      let average = (1 / bad) * good;
+      return average;
+    }
+    return "0";
   };
 
   const findPositive = () => {
@@ -31,13 +36,14 @@ const App = () => {
       <button onClick={() => setGood(good + 1)}>Good</button>
       <button onClick={() => setBad(bad + 1)}>Bad</button>
       <button onClick={() => setNeutral(neutral + 1)}>Neutral</button>
-      <h1>Statistics</h1>
-      <p>Good {good}</p>
-      <p>Bad {bad}</p>
-      <p>Neutral {neutral}</p>
-      <p>All {findTotal()}</p>
-      <p>Average {findAverage()}</p>
-      <p>Amount Positive {findPositive()}</p>
+      <Statistics
+        good={good}
+        bad={bad}
+        neutral={neutral}
+        findTotal={findTotal()}
+        findAverage={findAverage()}
+        findPositive={findPositive()}
+      />
     </>
   );
 };
