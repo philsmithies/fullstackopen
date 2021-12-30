@@ -13,12 +13,16 @@ export const Statistics = ({
       <h1>Statistics</h1>
       {findTotal ? (
         <div>
-          <StatisticsLine text="Good" value={good} />
-          <StatisticsLine text="Bad" value={bad} />
-          <StatisticsLine text="Neutral" value={neutral} />
-          <StatisticsLine text="All" value={findTotal} />
-          <StatisticsLine text="Average" value={findAverage} />
-          <StatisticsLine text="Amount Positive" value={findPositive} />
+          <table>
+            <tbody>
+              <StatisticsLine text="Good" value={good} />
+              <StatisticsLine text="Bad" value={bad} />
+              <StatisticsLine text="Neutral" value={neutral} />
+              <StatisticsLine text="All" value={findTotal} />
+              <StatisticsLine text="Average" value={findAverage} />
+              <StatisticsLine text="Amount Positive " value={findPositive} />
+            </tbody>
+          </table>
         </div>
       ) : (
         <div>

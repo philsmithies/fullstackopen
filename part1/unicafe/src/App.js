@@ -12,6 +12,7 @@ const App = () => {
     return good + neutral + bad;
   };
 
+  // fix find average
   const findAverage = () => {
     // the average score (good: 1, neutral: 0, bad: -1)
     let total = findTotal();
