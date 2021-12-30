@@ -11,7 +11,7 @@ export const Statistics = ({
   return (
     <>
       <h1>Statistics</h1>
-      {findTotal > 0 ? (
+      {findTotal ? (
         <div>
           <StatisticsLine text="Good" value={good} />
           <StatisticsLine text="Bad" value={bad} />
