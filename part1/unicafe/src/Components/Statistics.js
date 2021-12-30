@@ -1,3 +1,5 @@
+import StatisticsLine from "./StatisticsLine";
+
 export const Statistics = ({
   good,
   bad,
@@ -11,12 +13,12 @@ export const Statistics = ({
       <h1>Statistics</h1>
       {findTotal > 0 ? (
         <div>
-          <p>Good {good}</p>
-          <p>Bad {bad}</p>
-          <p>Neutral {neutral}</p>
-          <p>All {findTotal}</p>
-          <p>Average {findAverage}</p>
-          <p>Amount Positive {findPositive}</p>
+          <StatisticsLine text="Good" value={good} />
+          <StatisticsLine text="Bad" value={bad} />
+          <StatisticsLine text="Neutral" value={neutral} />
+          <StatisticsLine text="All" value={findTotal} />
+          <StatisticsLine text="Average" value={findAverage} />
+          <StatisticsLine text="Amount Positive" value={findPositive} />
         </div>
       ) : (
         <div>
