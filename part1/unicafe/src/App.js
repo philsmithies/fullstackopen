@@ -9,18 +9,18 @@ const App = () => {
   const [bad, setBad] = useState(0);
 
   const findTotal = () => {
-    return good + neutral + bad;
+    return good + bad;
   };
 
   // fix find average
   const findAverage = () => {
     // the average score (good: 1, neutral: 0, bad: -1)
     let total = findTotal();
-    if (total !== 0) {
+    if (total > 0 && bad >= 1) {
       let average = (1 / bad) * good;
       return average;
     }
-    return "0";
+    return "1";
   };
 
   const findPositive = () => {
