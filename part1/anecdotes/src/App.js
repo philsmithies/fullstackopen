@@ -13,6 +13,8 @@ const App = () => {
 
   const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
 
+  const [highestRated, setHighestRated] = useState("No Votes Received Yet");
+
   const [selected, setSelected] = useState(0);
 
   const randomNumber = Math.floor(Math.random() * anecdotes.length);
@@ -21,28 +23,29 @@ const App = () => {
     const newVotes = [...votes];
     newVotes[selected] += 1;
     setVotes(newVotes);
+    findHighestRated();
   };
-
-  const allAnecdotes = votes.map((number, i) => (
-    <>
-      <p>{anecdotes[i]}</p>
-      <p>votes: {number}</p>
-    </>
-  ));
 
   const randomAnecdote = () => {
     setSelected(randomNumber);
     console.log("selected is", selected);
   };
 
+  const findHighestRated = () => {
+    const max = Math.max(...votes);
+    const index = votes.indexOf(max);
+    setHighestRated(anecdotes[index]);
+  };
+
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
       <p>Votes:{votes[selected]}</p>
       <button onClick={handleVote}>Vote</button>
       <button onClick={randomAnecdote}>Next Anecdote</button>
-      <h1>All Anecdotes</h1>
-      {allAnecdotes}
+      <h1>Anecdote with the most votes</h1>
+      {highestRated}
     </div>
   );
 };
