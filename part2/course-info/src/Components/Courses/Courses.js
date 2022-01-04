@@ -7,7 +7,6 @@ export const Courses = ({ courses }) => {
   return (
     <>
       {courses.map((course) => {
-        console.log(course.parts);
         return (
           <div key={course.id}>
             <Header name={course.name} />

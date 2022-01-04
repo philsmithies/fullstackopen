@@ -1,5 +1,5 @@
 import React from "react";
-import { Courses } from "./Components/Course/Courses";
+import { Courses } from "./Components/Courses/Courses";
 
 const App = () => {
   const courses = [
@@ -47,7 +47,12 @@ const App = () => {
     },
   ];
 
-  return <Courses courses={courses} />;
+  return (
+    <>
+      <h1>Web development curriculum</h1>
+      <Courses courses={courses} />
+    </>
+  );
 };
 
 export default App;
