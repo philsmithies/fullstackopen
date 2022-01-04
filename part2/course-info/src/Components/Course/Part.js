@@ -1,5 +1,5 @@
-export const Part = ({ part, exercise }) => (
+export const Part = ({ title, exercise }) => (
   <p>
-    {part} {exercise}
+    {title} {exercise}
   </p>
 );
