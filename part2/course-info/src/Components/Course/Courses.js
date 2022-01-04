@@ -9,10 +9,10 @@ export const Courses = ({ courses }) => {
       {courses.map((course) => {
         console.log(course.parts);
         return (
-          <div>
+          <div key={course.id}>
             <Header name={course.name} />
             <Content parts={course.parts} />
-            {/* <Total course={course} /> */}
+            <Total parts={course.parts} />
           </div>
         );
       })}

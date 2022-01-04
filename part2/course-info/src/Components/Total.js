@@ -1,12 +1,12 @@
-export const Total = ({ course }) => {
-  const total = Object.values(course.parts).reduce(
+export const Total = ({ parts }) => {
+  const total = Object.values(parts).reduce(
     (previousValue, { exercises }) => previousValue + exercises,
     0
   );
 
   return (
     <>
-      <p>Number of exercises {total}</p>
+      <h3>Number of exercises {total}</h3>
     </>
   );
 };
