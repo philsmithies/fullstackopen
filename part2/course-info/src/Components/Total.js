@@ -1,8 +1,9 @@
 export const Total = ({ course }) => {
-  let total =
-    course.parts[0].exercises +
-    course.parts[1].exercises +
-    course.parts[2].exercises;
+  const total = Object.values(course.parts).reduce(
+    (previousValue, { exercises }) => previousValue + exercises,
+    0
+  );
+
   return (
     <>
       <p>Number of exercises {total}</p>
