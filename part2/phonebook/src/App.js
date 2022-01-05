@@ -6,6 +6,9 @@ const App = () => {
 
   const addToPhonebook = (e) => {
     e.preventDefault();
+    const personObject = { name: newName };
+    setPersons(persons.concat(personObject));
+    setNewName("");
   };
 
   const handleChange = (e) => {
@@ -16,7 +19,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <div>debug: {newName}</div>
-      <form onChange={addToPhonebook}>
+      <form onSubmit={addToPhonebook}>
         <div>
           name: <input onChange={handleChange} />
         </div>
@@ -25,7 +28,10 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      ...
+      {persons &&
+        persons.map((person) => {
+          return <p>{person.name}</p>;
+        })}
     </div>
   );
 };
