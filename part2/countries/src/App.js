@@ -3,33 +3,49 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
-  const [result, setResult] = useState([]);
   const [query, setQuery] = useState("");
+  const [countries, setCountries] = useState([]);
+  const filteredResults = filterCountries(countries, query);
 
   useEffect(() => {
-    axios.get("https://restcountries.com/v3.1/name/peru").then((response) => {
-      console.log(response.data);
-    });
-  }, []);
-
-  const searchTerm = () => {
     axios
-      .get(`https://restcountries.com/v3.1/name/${query}`)
+      .get("https://restcountries.com/v3.1/all")
       .then((response) => {
-        if (response.data.length > 10) {
-          console.log("Too Many Results");
-        } else {
-          setResult(response.data);
-        }
+        setCountries(response.data);
       })
       .catch((e) => {
-        console.log(e.message);
+        console.log(e);
       });
-  };
+  }, []);
 
   const handleChange = (e) => {
     console.log(e.target.value);
     setQuery(e.target.value);
+    filterCountries();
+  };
+
+  // const filterCountries = () => {
+  //   countries.filter((country) => {
+  //     if (query === "") {
+  //       return country;
+  //     } else if (
+  //       country.name.common.toLowerCase().includes(query.toLowerCase())
+  //     ) {
+  //       setFilteredResults(filteredResults.concat(country));
+  //       console.log("the results are", filteredResults);
+  //     }
+  //   });
+  // };
+
+  const filterCountries = (country, query) => {
+    if (!query) {
+      return country;
+    }
+
+    return countries.filter((country) => {
+      const countryName = country.common.name.toLowerCase();
+      return countryName.includes(query);
+    });
   };
 
   return (
@@ -40,16 +56,8 @@ function App() {
         placeholder="Enter A Country"
         onChange={(e) => handleChange(e)}
       />
-      <button onClick={searchTerm()}>Search</button>
-      <h1>The query is {query}</h1>
-      {result &&
-        result.map((country) => {
-          return (
-            <div>
-              <p>{country.name.common}</p>
-            </div>
-          );
-        })}
+
+      {filteredResults}
     </div>
   );
 }
