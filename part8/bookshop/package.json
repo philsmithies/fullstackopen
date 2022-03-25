@@ -1,0 +1,17 @@
+{
+  "name": "bookshop",
+  "version": "1.0.0",
+  "description": "bookshop",
+  "main": "library-backend.js",
+  "scripts": {
+    "dev": "node library-backend.js",
+    "test": "yarn test"
+  },
+  "author": "phil",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^3.6.6",
+    "apollo-server-core": "^3.6.6",
+    "graphql": "^16.3.0"
+  }
+}
