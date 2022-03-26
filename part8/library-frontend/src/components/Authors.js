@@ -1,22 +1,28 @@
 import { ALL_AUTHORS, EDIT_AUTHOR } from "../queries";
 import { useQuery, useMutation } from "@apollo/client";
 import { useState } from "react";
+import Select from "react-select";
 
 const Authors = (props) => {
-  const { data, loading } = useQuery(ALL_AUTHORS, {
-    pollInterval: 2000,
-  });
-
-  const [editAuthor] = useMutation(EDIT_AUTHOR);
-
+  const [selectedOption, setSelectedOption] = useState(null);
   const [author, setAuthor] = useState("");
   const [born, setBorn] = useState("");
+
+  const { data, loading } = useQuery(ALL_AUTHORS);
+
+  const options = [
+    { value: "chocolate", label: "Chocolate" },
+    { value: "strawberry", label: "Strawberry" },
+    { value: "vanilla", label: "Vanilla" },
+  ];
+
+  const [editAuthor] = useMutation(EDIT_AUTHOR, {
+    refetchQueries: [{ query: ALL_AUTHORS }],
+  });
 
   if (loading) {
     return <div>loading...</div>;
   }
-
-  console.log(data);
 
   const submit = async (event) => {
     event.preventDefault();
@@ -28,8 +34,6 @@ const Authors = (props) => {
     setAuthor("");
     setBorn("");
   };
-
-  const authors = data?.allAuthors;
 
   if (!props.show) {
     return null;
@@ -45,7 +49,7 @@ const Authors = (props) => {
             <th>born</th>
             <th>books</th>
           </tr>
-          {authors?.map((a) => (
+          {data.allAuthors.map((a) => (
             <tr key={a.name}>
               <td>{a.name}</td>
               <td>{a.born}</td>
@@ -55,6 +59,13 @@ const Authors = (props) => {
         </tbody>
       </table>
       <br />
+      <div style={{ maxWidth: "400px" }}>
+        <Select
+          defaultValue={selectedOption}
+          onChange={setSelectedOption}
+          options={options}
+        />
+      </div>
       <form onSubmit={submit}>
         <div>
           name{" "}

@@ -40,7 +40,6 @@ export const ADD_BOOK = gql`
       author
       genres
     }
-    author
   }
 `;
 
