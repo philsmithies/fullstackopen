@@ -10,12 +10,6 @@ const Authors = (props) => {
 
   const { data, loading } = useQuery(ALL_AUTHORS);
 
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
-
   const [editAuthor] = useMutation(EDIT_AUTHOR, {
     refetchQueries: [{ query: ALL_AUTHORS }],
   });
@@ -23,6 +17,10 @@ const Authors = (props) => {
   if (loading) {
     return <div>loading...</div>;
   }
+
+  const newOptions = data?.allAuthors.map((a) => {
+    return { value: a.name, label: a.name };
+  });
 
   const submit = async (event) => {
     event.preventDefault();
@@ -59,19 +57,12 @@ const Authors = (props) => {
         </tbody>
       </table>
       <br />
-      <div style={{ maxWidth: "400px" }}>
-        <Select
-          defaultValue={selectedOption}
-          onChange={setSelectedOption}
-          options={options}
-        />
-      </div>
       <form onSubmit={submit}>
-        <div>
-          name{" "}
-          <input
-            value={author}
-            onChange={({ target }) => setAuthor(target.value)}
+        <div style={{ maxWidth: "400px" }}>
+          <Select
+            defaultValue={selectedOption}
+            onChange={(target) => setAuthor(target.value)}
+            options={newOptions}
           />
         </div>
         <div>
