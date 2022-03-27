@@ -4,7 +4,7 @@ import { useState } from "react";
 import Select from "react-select";
 
 const Authors = (props) => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption] = useState(null);
   const [author, setAuthor] = useState("");
   const [born, setBorn] = useState("");
 
@@ -17,6 +17,8 @@ const Authors = (props) => {
   if (loading) {
     return <div>loading...</div>;
   }
+
+  console.log("data is author,", data);
 
   const newOptions = data?.allAuthors.map((a) => {
     return { value: a.name, label: a.name };
@@ -51,7 +53,7 @@ const Authors = (props) => {
             <tr key={a.name}>
               <td>{a.name}</td>
               <td>{a.born}</td>
-              <td>{a.authorBookCount}</td>
+              {/* <td>{a.authorBookCount}</td> */}
             </tr>
           ))}
         </tbody>
@@ -72,7 +74,7 @@ const Authors = (props) => {
             onChange={({ target }) => setBorn(target.value)}
           />
         </div>
-        <button type="submit">edit age!</button>
+        <button type="submit">update author</button>
       </form>
     </div>
   );

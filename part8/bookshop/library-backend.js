@@ -132,7 +132,7 @@ const typeDefs = gql`
 
   type User {
     username: String!
-    favoriteGenre: String!
+    favoriteGenre: String
     id: ID!
   }
 
@@ -189,6 +189,7 @@ const resolvers = {
     },
   },
   Author: {
+    // to count by query
     authorBookCount: async (root, _args) => Book.countDocuments({}),
   },
   Mutation: {
@@ -243,7 +244,10 @@ const resolvers = {
       return author;
     },
     createUser: async (root, args) => {
-      const user = new User({ username: args.username });
+      const user = new User({
+        username: args.username,
+        favoriteGenre: args.favoriteGenre,
+      });
 
       return user.save().catch((error) => {
         throw new UserInputError(error.message, {
