@@ -178,7 +178,7 @@ const resolvers = {
       if (args.author) {
         // return Book.find({ author: { $in: args.author } }, { _id: 0 });
       } else {
-        return Book.find({});
+        return Book.find({}).populate("author");
       }
     },
     allAuthors: async () => Author.find({}),
@@ -199,13 +199,18 @@ const resolvers = {
         throw new AuthenticationError("not authenticated");
       }
 
+      // conditional here is needed to stop duplicates
+      const author = new Author({ name: args.author });
+
       const book = new Book({
         title: args.title,
         published: args.published,
         genres: args.published,
-        author: new Author({ name: args.author }),
+        author: author,
       });
+
       try {
+        await author.save();
         await book.save();
       } catch (error) {
         throw new UserInputError(error.message, {
@@ -214,6 +219,7 @@ const resolvers = {
       }
       return book;
     },
+
     editAuthor: async (root, args, context) => {
       const currentUser = context.currentUser;
 
