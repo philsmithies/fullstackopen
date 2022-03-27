@@ -1,4 +1,4 @@
-const { ApolloServer, gql } = require("apollo-server");
+const { ApolloServer, gql, UserInputError } = require("apollo-server");
 const { v1: uuid } = require("uuid");
 const mongoose = require("mongoose");
 const Author = require("./models/author");
@@ -153,6 +153,9 @@ const resolvers = {
     authorCount: async () => Author.countDocuments({}),
     allBooks: async (_root, args) => {
       if (args.genre && args.author) {
+        /**
+         * !updating on the next section?
+         */
         // const authorsBooks = books.filter((b) => b.author === args.author);
         // return authorsBooks.filter((b) => b.genres.includes(args.genre));
       } else if (args.genre) {
@@ -166,31 +169,42 @@ const resolvers = {
     },
     allAuthors: async () => Author.find({}),
     bookCount: async () => Book.countDocuments({}),
-    findBook: async (_root, args) => books.find((b) => b.title === args.title),
+    findBook: async (_root, args) => Book.findOne({ title: args.title }),
   },
   Author: {
-    authorBookCount: (root, _args) =>
-      books.filter((b) => b.author === root.name).length,
+    authorBookCount: async (root, _args) => Book.countDocuments({}),
   },
   Mutation: {
-    addBook: (root, args) => {
-      const author = { name: args.author };
-      authors = authors.concat(author);
-      const book = { ...args, id: uuid() };
-      books = books.concat(book);
+    addBook: async (root, args) => {
+      const book = new Book({
+        title: args.title,
+        published: args.published,
+        genres: args.published,
+        author: new Author({ name: args.author }),
+      });
+      try {
+        await book.save();
+      } catch (error) {
+        throw new UserInputError(error.message, {
+          invalidArgs: args,
+        });
+      }
       return book;
     },
-    editAuthor: (root, args) => {
-      const author = authors.find((author) => author.name === args.name);
+    editAuthor: async (root, args) => {
+      const author = await Author.findOne({ name: args.name });
       if (!author) {
         return null;
       }
-
-      const updatedAuthor = { ...author, born: args.born };
-      authors = authors.map((author) =>
-        author.name === args.name ? updatedAuthor : author
-      );
-      return updatedAuthor;
+      author.born = args.born;
+      try {
+        await author.save();
+      } catch (error) {
+        throw new UserInputError(error.message, {
+          invalidArgs: args,
+        });
+      }
+      return author;
     },
   },
 };
