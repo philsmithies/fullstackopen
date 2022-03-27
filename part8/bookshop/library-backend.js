@@ -1,5 +1,29 @@
 const { ApolloServer, gql } = require("apollo-server");
 const { v1: uuid } = require("uuid");
+const mongoose = require("mongoose");
+const Author = require("./models/author");
+const Book = require("./models/book");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+
+const JWT_SECRET = "NEED_HERE_A_SECRET_KEY";
+const MONGODB_URI = `mongodb+srv://admin:${process.env.DB_PASSWORD}@cluster0.yasgf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+
+console.log("connecting to", MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+});
+
+mongoose
+  .connect(MONGODB_URI)
+  .then(() => {
+    console.log("connected to MongoDB");
+  })
+  .catch((error) => {
+    console.log("error connection to MongoDB:", error.message);
+  });
 
 let authors = [
   {
@@ -93,20 +117,20 @@ const typeDefs = gql`
   type Book {
     title: String!
     published: Int!
-    author: String!
-    id: String!
-    genres: [String]
+    author: Author!
+    genres: [String!]!
+    id: ID!
   }
 
   type Author {
     name: String!
     id: String
     born: Int
-    authorBookCount: Int!
+    authorBookCount: [Int]!
   }
 
   type Query {
-    authorCount: Int!
+    authorCount: Int
     allBooks(author: String, genre: String): [Book!]!
     allAuthors: [Author]!
     bookCount: Int!
@@ -126,23 +150,23 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    authorCount: () => authors.length,
-    allBooks: (_root, args) => {
+    authorCount: async () => Author.countDocuments({}),
+    allBooks: async (_root, args) => {
       if (args.genre && args.author) {
-        const authorsBooks = books.filter((b) => b.author === args.author);
-        return authorsBooks.filter((b) => b.genres.includes(args.genre));
+        // const authorsBooks = books.filter((b) => b.author === args.author);
+        // return authorsBooks.filter((b) => b.genres.includes(args.genre));
       } else if (args.genre) {
-        return books.filter((b) => b.genres.includes(args.genre));
+        return Book.find({ genres: { $in: args.genre } });
       }
       if (args.author) {
-        return books.filter((b) => b.author === args.author);
+        // return Book.find({ author: { $in: args.author } }, { _id: 0 });
       } else {
-        return books;
+        return Book.find({});
       }
     },
-    allAuthors: () => authors,
-    bookCount: () => books.length,
-    findBook: (_root, args) => books.find((b) => b.title === args.title),
+    allAuthors: async () => Author.find({}),
+    bookCount: async () => Book.countDocuments({}),
+    findBook: async (_root, args) => books.find((b) => b.title === args.title),
   },
   Author: {
     authorBookCount: (root, _args) =>
