@@ -132,7 +132,7 @@ const typeDefs = gql`
 
   type User {
     username: String!
-    favoriteGenre: String
+    favoriteGenre: String!
     id: ID!
   }
 

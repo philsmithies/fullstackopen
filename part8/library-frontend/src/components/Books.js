@@ -60,7 +60,7 @@ const Books = (props) => {
           {book.genres[0]}
         </button>
       ))}
-      <button onClick={() => setGenre(null)}>clear</button>
+      <button onClick={() => setGenre(null)}>All Genres</button>
     </div>
   );
 };

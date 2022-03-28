@@ -18,8 +18,6 @@ const Authors = (props) => {
     return <div>loading...</div>;
   }
 
-  console.log("data is author,", data);
-
   const newOptions = data?.allAuthors.map((a) => {
     return { value: a.name, label: a.name };
   });
