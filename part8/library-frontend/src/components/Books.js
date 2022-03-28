@@ -1,22 +1,21 @@
-import { ALL_BOOKS } from "../queries";
-import { useQuery } from "@apollo/client";
+import { ALL_BOOKS, FILTER_BOOKS } from "../queries";
+import { useQuery, useLazyQuery } from "@apollo/client";
 import { useState } from "react";
 
 const Books = (props) => {
   const [genre, setGenre] = useState(null);
-  const [filteredArray, setFilteredArray] = useState("");
   const { data, loading } = useQuery(ALL_BOOKS);
 
-  if (loading) {
+  const [loadFilters, { data: filterData, loading: filterLoading }] =
+    useLazyQuery(FILTER_BOOKS, { variables: { genre: genre } });
+
+  if (loading || filterLoading) {
     return <div>loading...</div>;
   }
 
   const filterResults = (filterGenre) => {
     setGenre(filterGenre);
-    console.log("the genre is", filterGenre);
-    const results = data.allBooks.filter((b) => b.genres.includes(genre));
-    setFilteredArray(results);
-    console.log("filtered is", filteredArray);
+    loadFilters();
   };
 
   if (!props.show) {
@@ -46,7 +45,7 @@ const Books = (props) => {
                   <td>{a.published}</td>
                 </tr>
               ))
-            : filteredArray.map((a) => (
+            : filterData?.allBooks.map((a) => (
                 <tr key={a.title}>
                   <td>{a.title}</td>
                   <td>{a.author.name}</td>
