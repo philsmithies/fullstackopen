@@ -206,7 +206,7 @@ const resolvers = {
       const book = new Book({
         title: args.title,
         published: args.published,
-        genres: args.published,
+        genres: args.genres,
         author: author,
       });
 
