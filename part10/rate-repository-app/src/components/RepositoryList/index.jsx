@@ -1,4 +1,5 @@
-import { FlatList, View, StyleSheet, Text } from "react-native";
+import { FlatList, View, StyleSheet } from "react-native";
+import Card from "./Card";
 
 const styles = StyleSheet.create({
   separator: {
@@ -61,20 +62,7 @@ const RepositoryList = () => {
       <FlatList
         data={repositories}
         ItemSeparatorComponent={ItemSeparator}
-        renderItem={({ item }) => (
-          <View style={{ backgroundColor: "red" }}>
-            <Text style={{ color: "black" }}>Full name: {item.fullName}</Text>
-            <Text style={{ color: "black" }}>
-              Description: {item.description}
-            </Text>
-            <Text style={{ color: "black" }}>Language: {item.language}</Text>
-            <Text style={{ color: "black" }}>
-              Stars: {item.stargazersCount}
-            </Text>
-            <Text style={{ color: "black" }}>Reviews: {item.reviewCount}</Text>
-            <Text style={{ color: "black" }}>Rating: {item.ratingAverage}</Text>
-          </View>
-        )}
+        renderItem={({ item }) => <Card item={item} />}
       />
     </View>
   );
